@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: MIT
+# Match the public Apple J700 device-tree compatible token exactly.
+SUBSYSTEM=="power_supply", KERNEL=="macsmc-battery", PROGRAM=="/usr/bin/grep -z -x -q apple,j700 /sys/firmware/devicetree/base/compatible", ENV{CHARGE_LIMIT}="75,80"

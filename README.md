@@ -17,12 +17,13 @@ country from the time zone.
 
 ## Install
 
-Install the Fedora RPM, or run `make install` as root. The installed file is
-`/usr/lib/NetworkManager/conf.d/80-aurora-neo-mt7932.conf`. Reboot to apply the
+Install the Fedora RPM, or run `make install` as root. The installed files are
+`/usr/lib/NetworkManager/conf.d/80-aurora-neo-mt7932.conf` and
+`/usr/lib/udev/rules.d/80-aurora-neo-charge-limit.rules`. Reboot to apply the
 configuration. To override it, place a configuration file under
 `/etc/NetworkManager/conf.d/`.
 
-This package contains only the Wi-Fi address policy. System sleep, lid and
+This package supplies the Wi-Fi address and J700 charge-limit policies. System sleep, lid and
 power-button settings follow the distribution and the user's configuration.
 
 ## Build
@@ -36,6 +37,17 @@ rpmbuild -ba aurora-neo-platform-config.spec
 For an RPM build, put a source archive named
 `aurora-neo-platform-config-0.1.0.tar.gz` in the RPM `SOURCES` directory, with a
 matching top-level directory.
+
+## Charge limits
+
+The udev rule supplies `CHARGE_LIMIT=75,80` to native UPower only for
+`macsmc-battery` when the device tree contains the exact NUL-delimited
+`apple,j700` token. Other boards and a missing compatible file do not match.
+The selector uses `/usr/bin/grep` as a short foreground udev PROGRAM; no
+additional daemon or helper is installed. The public Linux J700 device tree
+provides this compatible token. UPower owns persistence and threshold writes.
+Actual J700 udev property, enable state and sysfs readback are hardware release
+gates; fixture tests alone do not establish them.
 
 ## License
 
