@@ -1,0 +1,12 @@
+# MacBook Neo (J700) trackpad.
+#
+# The kernel reports palms as MT_TOOL_PALM, from the controller's own
+# classification and the contact's tool area. A flat thumb's touch size
+# overlaps a small palm's, so the Apple MTP palm size threshold (1600) only
+# rejects thumbs here: turn size-based palm detection off.
+[Apple MacBook Neo Touchpad]
+MatchUdevType=touchpad
+MatchName=Apple*MTP*
+MatchVendor=0x05AC
+MatchDeviceTree=*j700*
+AttrPalmSizeThreshold=0
